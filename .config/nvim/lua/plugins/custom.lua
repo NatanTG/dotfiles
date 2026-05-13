@@ -105,27 +105,29 @@ return {
 		keys = {
 			{ "<leader>gg", desc = "Lazygit" },
 			{ "<leader>ld", desc = "Lazydocker" },
+			{ "<leader>tt", desc = "Terminal popup" },
+			{ "<leader>ai", desc = "Claude Code popup" },
 		},
 		config = function()
 			require("toggleterm").setup({
-				size = function(term)
-					if term.direction == "horizontal" then
-						return 15
-					elseif term.direction == "vertical" then
-						return vim.o.columns * 0.4
-					end
-				end,
-				open_mapping = [[<c-\>]],
 				direction = "float",
-				float_opts = { border = "rounded" },
+				float_opts = {
+					border = "rounded",
+					width = function() return math.floor(vim.o.columns * 0.85) end,
+					height = function() return math.floor(vim.o.lines * 0.85) end,
+				},
 			})
 
 			local Terminal = require("toggleterm.terminal").Terminal
 			local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 			local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
+			local terminal = Terminal:new({ hidden = true, direction = "float" })
+			local claude = Terminal:new({ cmd = "claude", hidden = true, direction = "float", close_on_exit = false })
 
 			vim.keymap.set("n", "<leader>gg", function() lazygit:toggle() end, { desc = "Lazygit" })
 			vim.keymap.set("n", "<leader>ld", function() lazydocker:toggle() end, { desc = "Lazydocker" })
+			vim.keymap.set("n", "<leader>tt", function() terminal:toggle() end, { desc = "Terminal popup" })
+			vim.keymap.set("n", "<leader>ai", function() claude:toggle() end, { desc = "Claude Code popup" })
 		end,
 	},
 

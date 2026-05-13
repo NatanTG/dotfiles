@@ -26,7 +26,7 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.wrap = true
 vim.opt.linebreak = true -- quebra na palavra, não no meio
-vim.opt.colorcolumn = "120" -- linha guia em 120 caracteres
+vim.opt.textwidth = 0
 vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 vim.opt.wildignore:append({ "*/node_modules/*" })
