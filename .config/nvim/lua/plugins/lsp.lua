@@ -13,6 +13,8 @@ return {
 				"typescript-language-server",
 				"css-lsp",
 				"gopls",
+				"goimports",
+				"golangci-lint",
 				"prettierd",
 				"pyright",
 				"ruff",

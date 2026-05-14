@@ -26,6 +26,10 @@ return {
 		opts = {
 			default_file_explorer = true,
 			columns = { "icon" },
+			win_options = {
+				number = false,
+				relativenumber = false,
+			},
 			delete_to_trash = true,
 			skip_confirm_for_simple_edits = true,
 			watch_for_changes = true,
@@ -195,7 +199,7 @@ return {
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				graphql = { "prettierd", "prettier", stop_after_first = true },
 				python = { "ruff_format" },
-				go = { "gofmt" },
+				go = { "goimports", "gofmt" },
 				terraform = { "terraform_fmt" },
 				hcl = { "terraform_fmt" },
 			},
@@ -236,6 +240,17 @@ return {
 				references = true,
 				implements = true,
 			},
+		},
+	},
+
+	-- Markdown preview in browser
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = "cd app && npx --yes yarn install",
+		keys = {
+			{ "<leader>mr", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview" },
 		},
 	},
 }

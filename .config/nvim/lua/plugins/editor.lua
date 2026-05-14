@@ -236,6 +236,47 @@ return {
 	},
 
 	{
+		"pwntester/octo.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		cmd = "Octo",
+		keys = {
+			{ "<leader>gpl", "<cmd>Octo pr list<cr>", desc = "List PRs" },
+			{ "<leader>gps", "<cmd>Octo pr search<cr>", desc = "Search PRs" },
+			{ "<leader>gpc", "<cmd>Octo pr checkout<cr>", desc = "Checkout PR" },
+			{ "<leader>gpd", "<cmd>Octo pr diff<cr>", desc = "PR Diff" },
+			{ "<leader>gpr", "<cmd>Octo review start<cr>", desc = "Start Review" },
+			{ "<leader>gpa", "<cmd>Octo review submit<cr>", desc = "Submit Review" },
+			{ "<leader>gil", "<cmd>Octo issue list<cr>", desc = "List Issues" },
+			{ "<leader>gic", "<cmd>Octo issue create<cr>", desc = "Create Issue" },
+		},
+		opts = {},
+	},
+
+	{
+		"sindrets/diffview.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		keys = {
+			{ "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+			{ "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "Diffview Close" },
+			{ "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History (current)" },
+			{ "<leader>gdH", "<cmd>DiffviewFileHistory<cr>", desc = "File History (all)" },
+		},
+		opts = {
+			enhanced_diff_hl = true,
+			view = {
+				merge_tool = {
+					layout = "diff3_mixed",
+				},
+			},
+		},
+	},
+
+	{
 		"saghen/blink.cmp",
 		opts = {
 			completion = {
