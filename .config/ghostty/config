@@ -1,8 +1,9 @@
 theme = "Solarized Dark Patched"
 
-background-opacity = 0.9
-background-blur-radius = 20
-background = #031219
+background = #000000
+background-opacity = 1.0
+background-image = /Users/ntg/Documents/bloodborne-video-game-3840x2160-13077.jpg
+background-image-opacity = 0.4
 
 font-family = "FiraCode Nerd Font Mono"
 font-size = 14
