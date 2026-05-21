@@ -18,7 +18,7 @@ require("lazy").setup({
 			"LazyVim/LazyVim",
 			import = "lazyvim.plugins",
 			opts = {
-				colorscheme = "solarized-osaka",
+				colorscheme = "oasis-night",
 				news = {
 					lazyvim = true,
 					neovim = true,
@@ -33,6 +33,7 @@ require("lazy").setup({
 		-- { import = "lazyvim.plugins.extras.lang.markdown" },
 		{ import = "lazyvim.plugins.extras.lang.rust" },
 		{ import = "lazyvim.plugins.extras.lang.tailwind" },
+		{ import = "lazyvim.plugins.extras.lang.dart" },
 		{ import = "lazyvim.plugins.extras.lang.go" },
 		{ import = "lazyvim.plugins.extras.lang.python" },
 		{ import = "lazyvim.plugins.extras.lang.docker" },

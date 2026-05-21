@@ -1,4 +1,22 @@
 return {
+	-- Flutter tools (replaces dartls from lang.dart extra)
+	{
+		"nvim-flutter/flutter-tools.nvim",
+		ft = "dart",
+		dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
+		opts = {},
+	},
+	-- Disable dartls via lspconfig (flutter-tools manages it)
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				dartls = { mason = false, enabled = false },
+			},
+		},
+	},
+
+
 	-- Disable file explorers (using oil.nvim instead)
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 	{

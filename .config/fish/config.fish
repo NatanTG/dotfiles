@@ -65,3 +65,5 @@ function y
     rm -f -- "$tmp"
 end
 
+fish_add_path ~/.npm-global/bin
+fish_add_path ~/flutter/bin
