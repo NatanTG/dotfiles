@@ -67,3 +67,10 @@ end
 
 fish_add_path ~/.npm-global/bin
 fish_add_path ~/flutter/bin
+
+# Node — gerenciado pelo nvm.fish (jorgebucaran/nvm.fish)
+# Ativa a versão default em shells interativos; troque a versão aqui ao migrar.
+set -gx nvm_default_version v24.20.0
+if status is-interactive
+    nvm use --silent $nvm_default_version
+end
