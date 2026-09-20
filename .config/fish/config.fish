@@ -31,13 +31,19 @@ command -qv nvim && alias vim nvim
 alias spotify="ncspot"
 alias reset='source ~/.config/fish/config.fish'
 alias ios='xcrun simctl boot "iPhone 16" && open -a Simulator'
-alias android='emulator -avd Pixel_4'
+alias android='flutter emulators --launch Medium_Phone && flutter run'
 alias doapps='doctl apps list --format ID,Spec.Name,ActiveDeployment.ID,InProgressDeployment.ID,Updated'
 alias dodeploys='doctl apps list-deployments'
 alias dologs='doctl apps logs'
 alias dologsf='doctl apps logs --follow'
 alias dodb='doctl databases list'
 alias webstorm='/Applications/WebStorm.app/Contents/MacOS/webstorm'
+
+# Keymaps do Neovim
+alias keymaps-nvim='cat ~/.config/nvim/KEYMAPS.md'
+alias keymaps-vim='cat ~/.config/nvim/KEYMAPS-VIM.md'
+alias keymaps-tools='cat ~/.config/nvim/KEYMAPS-TOOLS.md'
+alias keymaps-all='cat ~/.config/nvim/KEYMAPS-VIM.md ~/.config/nvim/KEYMAPS.md ~/.config/nvim/KEYMAPS-TOOLS.md'
 
 set -x PATH $PATH ~/.local/bin
 
@@ -49,6 +55,7 @@ set -x PATH $PATH $ANDROID_HOME/emulator
 set -x PATH $PATH $ANDROID_HOME/tools
 set -x PATH $PATH $ANDROID_HOME/tools/bin
 set -x PATH $PATH $ANDROID_HOME/platform-tools
+set -x PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.fish.inc' ]
