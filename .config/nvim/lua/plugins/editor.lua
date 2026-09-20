@@ -236,6 +236,43 @@ return {
 	},
 
 	{
+		"skanehira/github-actions.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim",
+		},
+		cmd = { "GithubActionsDispatch", "GithubActionsHistory", "GithubActionsHistoryByPR", "GithubActionsWatch" },
+		keys = {
+			{
+				"<leader>gad",
+				function() require("github-actions").dispatch_workflow() end,
+				desc = "GH Actions: Dispatch Workflow",
+			},
+			{
+				"<leader>gah",
+				function() require("github-actions").show_history() end,
+				desc = "GH Actions: History",
+			},
+			{
+				"<leader>gap",
+				function() require("github-actions").show_history({ pr_mode = true }) end,
+				desc = "GH Actions: History by PR",
+			},
+			{
+				"<leader>gaw",
+				function() require("github-actions").watch_workflow() end,
+				desc = "GH Actions: Watch Workflow",
+			},
+			{
+				"<leader>gao",
+				function() require("github-actions").open_workflow_url() end,
+				desc = "GH Actions: Open in Browser",
+			},
+		},
+		opts = {},
+	},
+
+	{
 		"pwntester/octo.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",

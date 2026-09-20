@@ -20,17 +20,60 @@ set -g theme_hostname always
 zoxide init fish | source
 fzf --fish | source
 
-alias ls='eza --icons -1'
-alias ll='eza -l --icons --git'
-alias la='eza -a --icons'
-alias lla='eza -la --icons --git'
+function ls
+    set -l target "."
+    for arg in $argv
+        if not string match -q -- '-*' $arg
+            set target $arg
+        end
+    end
+    set -l dir (realpath $target)
+    echo ""
+    printf "    Directory: %s\n" $dir
+    echo ""
+    printf "\033[32m%-8s  %16s  %10s  %-s\033[0m\n" "Mode" "LastWriteTime" "Length" "Name"
+    printf "%-8s  %16s  %10s  %-s\n" "----" "-------------" "------" "----"
+    set -l ls_flags -lT
+    if contains -- -a $argv; or contains -- -A $argv
+        set ls_flags -lAT
+    end
+    command ls $ls_flags $target | tail -n +2 | while read -l line
+        set -l perms (string sub -l 10 -- $line)
+        set -l rest (string replace -r '^[^ ]+\s+\d+\s+\S+\s+\S+\s+' '' -- $line)
+        set -l size (string match -r '^\d+' -- $rest)
+        set rest (string replace -r '^\d+\s+' '' -- $rest)
+        # -T gives: Mon DD HH:MM:SS YYYY Name
+        set -l mon (string match -r '^\S+' -- $rest)
+        set rest (string replace -r '^\S+\s+' '' -- $rest)
+        set -l day (string match -r '^\d+' -- $rest)
+        set rest (string replace -r '^\d+\s+' '' -- $rest)
+        set -l time_full (string match -r '^\S+' -- $rest)
+        set rest (string replace -r '^\S+\s+' '' -- $rest)
+        set -l year (string match -r '^\d{4}' -- $rest)
+        set -l name (string replace -r '^\d{4}\s+' '' -- $rest)
+        set -l time_short (string replace -r '(\d+:\d+):\d+' '$1' -- $time_full)
+        set -l date_str "$day.$mon.$year  $time_short"
+        set -l mode "-a---"
+        if string match -q 'd*' -- $perms
+            set mode "d----"
+            set size ""
+        end
+        printf "%-8s  %16s  %10s  %s\n" $mode $date_str $size $name
+    end
+    echo ""
+end
+alias ll='ls'
+alias la='ls -a'
+alias lla='ls -a'
 alias lt='eza -T --git --icons'
 alias g='git'
 alias c='claude'
 command -qv nvim && alias vim nvim
+alias mongo="vi-mongo"
 alias spotify="ncspot"
+alias mail="neomutt"
 alias reset='source ~/.config/fish/config.fish'
-alias ios='xcrun simctl boot "iPhone 16" && open -a Simulator'
+# ios: função com seletor de device (ver ~/.config/fish/functions/ios.fish)
 alias android='flutter emulators --launch Medium_Phone && flutter run'
 alias doapps='doctl apps list --format ID,Spec.Name,ActiveDeployment.ID,InProgressDeployment.ID,Updated'
 alias dodeploys='doctl apps list-deployments'
@@ -70,6 +113,12 @@ function y
         cd -- "$cwd"
     end
     rm -f -- "$tmp"
+    # Restore tab title to current directory after exiting Yazi
+    set -l dir_name (basename (pwd))
+    if test (pwd) = $HOME
+        set dir_name "~"
+    end
+    bash ~/.config/kitty/scripts/set-tab-title.sh "$dir_name"
 end
 
 fish_add_path ~/.npm-global/bin
@@ -81,3 +130,7 @@ set -gx nvm_default_version v24.20.0
 if status is-interactive
     nvm use --silent $nvm_default_version
 end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
