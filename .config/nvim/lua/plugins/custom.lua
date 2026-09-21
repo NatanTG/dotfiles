@@ -153,6 +153,29 @@ return {
 		end,
 	},
 
+	-- Codex CLI (alongside Claude Code, not replacing it)
+	{
+		"johnseth97/codex.nvim",
+		lazy = true,
+		cmd = { "Codex", "CodexToggle" },
+		keys = {
+			{ "<leader>ax", function() require("codex").toggle() end, desc = "Codex popup", mode = { "n", "t" } },
+		},
+		opts = {
+			keymaps = {
+				toggle = nil,
+				quit = "<C-q>",
+			},
+			border = "rounded",
+			width = 0.85,
+			height = 0.85,
+			model = nil,
+			autoinstall = false, -- codex already installed via npm
+			panel = false,
+			use_buffer = false,
+		},
+	},
+
 	-- AI autocomplete
 	{
 		"supermaven-inc/supermaven-nvim",
