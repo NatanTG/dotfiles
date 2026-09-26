@@ -15,9 +15,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
 		local bufname = vim.api.nvim_buf_get_name(0)
 		local dir
 
-		if bufname:match("^oil://") then
-			dir = bufname:gsub("^oil://", "")
-		elseif bufname ~= "" then
+		if bufname ~= "" then
 			dir = vim.fn.fnamemodify(bufname, ":p:h")
 		else
 			dir = vim.fn.getcwd()
