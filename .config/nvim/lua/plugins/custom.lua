@@ -16,107 +16,18 @@ return {
 		},
 	},
 
-
-	-- Disable file explorers (using oil.nvim instead)
-	{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
+	-- Always show dotfiles, and round the popup borders (rename, filter/search, confirm)
 	{
-		"folke/snacks.nvim",
-		opts = { explorer = { enabled = false } },
-		keys = {
-			{ "<leader>fe", false },
-			{ "<leader>fE", false },
-			{ "<leader>e", false },
-			{ "<leader>E", false },
-		},
-	},
-
-
-	-- Oil.nvim file explorer
-	{
-		"stevearc/oil.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		cmd = "Oil",
-		keys = {
-			{ "<leader>o", function() require("oil").open_float() end, desc = "Oil (float)" },
-			{ "<leader>e", function() require("oil").open(vim.fn.getcwd()) end, desc = "Oil (cwd)" },
-			{ "-", function() require("oil").open() end, desc = "Oil (parent dir)" },
-		},
+		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
-			default_file_explorer = true,
-			columns = { "icon" },
-			delete_to_trash = true,
-			skip_confirm_for_simple_edits = true,
-			watch_for_changes = true,
-			constrain_cursor = "editable",
-			lsp_file_methods = {
-				enabled = true,
-				timeout_ms = 1000,
-				autosave_changes = "unmodified",
-			},
-			view_options = {
-				show_hidden = true,
-			},
-			keymaps = {
-				["g?"] = { "actions.show_help", mode = "n" },
-				["<CR>"] = "actions.select",
-				["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open in vertical split" },
-				["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open in horizontal split" },
-				["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open in new tab" },
-				["<C-p>"] = "actions.preview",
-				["P"] = "actions.preview",
-				["q"] = { "actions.close", mode = "n" },
-				["<C-l>"] = "actions.refresh",
-				["-"] = { "actions.parent", mode = "n" },
-				["_"] = { "actions.open_cwd", mode = "n" },
-				["`"] = { "actions.cd", mode = "n" },
-				["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-				["gs"] = { "actions.change_sort", mode = "n" },
-				["gx"] = "actions.open_external",
-				["g."] = { "actions.toggle_hidden", mode = "n" },
-				["g\\"] = { "actions.toggle_trash", mode = "n" },
-				["gd"] = {
-					desc = "Toggle file detail view",
-					callback = function()
-						local oil = require("oil")
-						local cols = oil.get_columns()
-						if #cols == 1 then
-							oil.set_columns({ "icon", "permissions", "size", "mtime" })
-						else
-							oil.set_columns({ "icon" })
-						end
-					end,
+			popup_border_style = "rounded",
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
 				},
 			},
-			float = {
-				padding = 2,
-				max_width = 0,
-				max_height = 0,
-				border = "rounded",
-				win_options = { winblend = 0 },
-				override = function(conf)
-					local screen_w = vim.o.columns
-					local screen_h = vim.o.lines - vim.o.cmdheight
-					conf.width = math.floor(screen_w * 0.8)
-					conf.height = math.floor(screen_h * 0.8)
-					conf.col = math.floor((screen_w - conf.width) / 2)
-					conf.row = math.floor((screen_h - conf.height) / 2)
-					return conf
-				end,
-			},
-			win_options = {
-				signcolumn = "yes:2",
-				number = false,
-				relativenumber = false,
-
-			},
 		},
-	},
-
-	{
-		"refractalize/oil-git-status.nvim",
-		dependencies = { "stevearc/oil.nvim" },
-		ft = "oil",
-		config = true,
 	},
 
 	-- Toggleterm for lazygit and lazydocker
