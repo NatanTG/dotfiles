@@ -1,7 +1,6 @@
 set fish_greeting ""
 set -x EDITOR nvim
 set -x SHELL /opt/homebrew/bin/fish
-set -gx TERM xterm-256color
 
 # Auto-start tmux (each terminal tab gets its own session)
 if status is-interactive; and not set -q TMUX
@@ -134,3 +133,6 @@ end
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# Homebrew antes do /usr/bin (ruby/pod do brew, não o Ruby 2.6 do sistema)
+fish_add_path --move --prepend /opt/homebrew/bin /opt/homebrew/sbin

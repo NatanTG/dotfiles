@@ -1,4 +1,4 @@
-function ios --description 'Escolhe um simulador iOS, dá boot e abre o Simulator'
+function ios --description 'Escolhe um simulador iOS, dá boot e abre o Device Hub'
     # Lista devices iPhone disponíveis como "Nome (Estado)\tUDID"
     set -l devices (xcrun simctl list devices available \
         | grep -E '^\s+iPhone' \
@@ -22,5 +22,12 @@ function ios --description 'Escolhe um simulador iOS, dá boot e abre o Simulato
 
     set -l udid (string split \t -- $choice)[2]
     xcrun simctl boot $udid 2>/dev/null  # ignora erro se já estiver bootado
-    open -a Simulator
+
+    # Xcode 27+ trocou o Simulator.app pelo Device Hub; fallback pro Simulator em Xcode antigo
+    set -l device_hub (xcode-select -p)/../Applications/DeviceHub.app
+    if test -d $device_hub
+        open $device_hub
+    else
+        open -a Simulator
+    end
 end
